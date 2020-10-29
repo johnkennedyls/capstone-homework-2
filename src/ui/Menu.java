@@ -70,11 +70,11 @@ public class Menu {
 	    String nickName = line[0];
 	    int n = Integer.parseInt(line[1]);
 
-	    char m = line[2].charAt(0); 
-	    System.out.println(m);
+	    int m = Integer.parseInt(line[2]);
 	    int k = Integer.parseInt(line[3]);
-	    game.createMatrix(n, m);
-	    game.display(game.getFirst());
+	    game = new Game(n, m, k, nickName);
+	    game.createMatrix();
+	    game.display();
 	    
 		
 		

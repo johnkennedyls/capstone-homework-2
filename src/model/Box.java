@@ -11,9 +11,9 @@ public class Box {
 	private int row;
 	private char colum;
 	
-	public Box(int r, char c) {
+	public Box(int r, int c) {
 		row = r;
-		colum = c;
+		colum = (char) ('A' + c);
 		
 		next = null;
 		prev = null;
@@ -69,8 +69,11 @@ public class Box {
 		this.colum = colum;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "[ ]";
+		
+	}
 	
 	
 	
