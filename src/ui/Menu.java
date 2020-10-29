@@ -74,7 +74,7 @@ public class Menu {
 	    int k = Integer.parseInt(line[3]);
 	    game = new Game(n, m, k, nickName);
 	    game.createMatrix();
-	    game.display();
+	    bw.write(game.display());
 	    
 		
 		
