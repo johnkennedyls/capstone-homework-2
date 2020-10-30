@@ -22,21 +22,21 @@ public class Game {
 
 	
 
-	public String display() {
+	public void displayColum( Box pointerDown) {
          String message = "";		
-         Box pointerDown = first;
+         pointerDown = first;
 		if (pointerDown == null) {
 						
 		}else {
 			
 			displayRow(pointerDown);
             message = "\n";		
-			pointerDown = pointerDown.getDown();			
+			displayColum(pointerDown.getDown());		
 		}
-		return message;
+		
 	}
 	
-	private String displayRow(Box pointerRight) {		
+	private void displayRow(Box pointerRight) {		
 		String message = "";
 		if (pointerRight == null) {
 			
@@ -44,7 +44,7 @@ public class Game {
 			message = pointerRight + " ";
 			displayRow(pointerRight.getNext());
 		}
-		return message;
+		
 	}
 	
 	

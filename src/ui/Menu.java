@@ -72,11 +72,34 @@ public class Menu {
 
 	    int m = Integer.parseInt(line[2]);
 	    int k = Integer.parseInt(line[3]);
+	    displayInitialGame(n, m);
 	    game = new Game(n, m, k, nickName);
 	    game.createMatrix();
-	    bw.write(game.display());
+	    
 	    
 		
+		
+	}
+	
+	private void displayInitialGame(int n, int m) throws Exception {
+		
+		if(n > 0) {
+			displayRow(m);
+			System.out.println();
+			displayInitialGame( n - 1, m);
+			
+			
+		}
+	}
+
+
+	private void displayRow(int m) throws Exception {
+		if(m > 0) {
+			System.out.print("[ ] ");
+			
+			displayRow(m - 1);
+			
+		}
 		
 	}
 
