@@ -1,7 +1,11 @@
 package model;
 
+import java.util.Random;
+
 //Adapted geek for geeks to create double linked list matrix
 public class Game {
+	
+	
 
 	private Box first;
 
@@ -9,6 +13,7 @@ public class Game {
 	private int m;
 	private int k;
 	private String nickName;
+	
 
 	public Game(int n, int m, int k, String nic) {
 		first = null;
@@ -22,30 +27,23 @@ public class Game {
 
 	
 
-	public void displayColum( Box pointerDown) {
-         String message = "";		
-         pointerDown = first;
-		if (pointerDown == null) {
-						
-		}else {
-			
-			displayRow(pointerDown);
-            message = "\n";		
-			displayColum(pointerDown.getDown());		
-		}
+
 		
-	}
-	
-	private void displayRow(Box pointerRight) {		
-		String message = "";
-		if (pointerRight == null) {
-			
-		}else {
-			message = pointerRight + " ";
-			displayRow(pointerRight.getNext());
-		}
-		
-	}
+	public  void display() {
+        Box pointerRight;
+        Box pointerDown = first;
+        while (pointerDown != null) {
+
+            pointerRight = pointerDown;
+            while (pointerRight != null) {
+                System.out.print(pointerRight + " ");
+                pointerRight = pointerRight.getNext();
+            }
+
+            System.out.println();
+            pointerDown = pointerDown.getDown();
+        }
+    }
 	
 	
 	
@@ -68,8 +66,10 @@ public class Game {
 		if(i >= n || j >= m) {
 			return null;
 		}
+		
 
-		Box temp = new Box(i, j);
+		Box temp = new Box(i+1, j);
+		
 		if(first == null) {
 			first = temp;
 		}
@@ -79,6 +79,22 @@ public class Game {
 		temp.setNext(createMatrix(i, j + 1, temp));
 		temp.setDown(createMatrix(i + 1, j , temp));
 		return temp;
+	}
+	
+	public boolean getRamdom() {
+		boolean has = false;
+		Random r = new Random();
+		has = r.nextBoolean();
+		return has;
+	}
+	
+	public char generateMirror(){
+		
+		if(getRamdom()) {
+			return 'R';
+		}
+		return 'L';
+		
 	}
 
 

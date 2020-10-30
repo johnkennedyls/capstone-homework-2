@@ -3,6 +3,8 @@ package model;
 //Adapted of gee
 public class Box {
 	
+	
+	
 	private Box next;
 	private Box prev;
 	private Box up;
@@ -10,6 +12,7 @@ public class Box {
 	
 	private int row;
 	private char colum;
+	private char mirror;
 	
 	public Box(int r, int c) {
 		row = r;
@@ -62,7 +65,7 @@ public class Box {
 	}
 
 	public char getColum() {
-		return colum;
+		return (char) colum;
 	}
 
 	public void setColum(char colum) {
@@ -71,8 +74,16 @@ public class Box {
 	
 	@Override
 	public String toString() {
-		return "[ ]";
+		return "[ " + row + "" + colum + " ]";
 		
+	}
+
+	public char getMirror() {
+		return mirror;
+	}
+
+	public void setMirror(char mirror) {
+		this.mirror = mirror;
 	}
 	
 	

@@ -69,12 +69,16 @@ public class Menu {
 		String[] line = br.readLine().split(" ");
 	    String nickName = line[0];
 	    int n = Integer.parseInt(line[1]);
-
 	    int m = Integer.parseInt(line[2]);
 	    int k = Integer.parseInt(line[3]);
-	    displayInitialGame(n, m);
-	    game = new Game(n, m, k, nickName);
-	    game.createMatrix();
+	   // displayInitialGame(n, m);
+	    if(m <= 26) {
+	        game = new Game(n, m, k, nickName);
+	        game.createMatrix();
+	        game.display();
+	    }else {
+	    	System.out.println("The number of columns must not be greater than 26");
+	    }
 	    
 	    
 		
