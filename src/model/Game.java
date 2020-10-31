@@ -88,7 +88,7 @@ public class Game {
 		return has;
 	}
 	
-	public char generateMirror(){
+	public char selectMirror(){
 		
 		if(getRamdom()) {
 			return 'R';
@@ -96,6 +96,16 @@ public class Game {
 		return 'L';
 		
 	}
+	
+	public void generateMirrors() {
+		int counter = 0;
+		
+		if(first != null && counter == k ) {
+			
+		}
+	}
+	
+	
 
 
 
