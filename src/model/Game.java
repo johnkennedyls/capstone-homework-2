@@ -4,16 +4,13 @@ import java.util.Random;
 
 //Adapted geek for geeks to create double linked list matrix
 public class Game {
-	
-	
 
 	private Box first;
 
 	private int n;
 	private int m;
 	private int k;
-	private String nickName;
-	
+	private String nickName;	
 
 	public Game(int n, int m, int k, String nic) {
 		first = null;
@@ -21,13 +18,7 @@ public class Game {
 		this.m = m;
 		this.k = k;
 		nickName = nic;
-
-
 	}
-
-	
-
-
 		
 	public  void display() {
         Box pointerRight;
@@ -44,11 +35,7 @@ public class Game {
             pointerDown = pointerDown.getDown();
         }
     }
-	
-	
-	
-
-	
+		
 	public Box getFirst() {
 		return first;
 	}
@@ -57,7 +44,9 @@ public class Game {
 		this.first = first;
 	}
 
-	//---------------------------------
+	/*
+	 * 
+	 */
 	public void createMatrix() {
 		createMatrix(0, 0, null);
 	}
@@ -97,7 +86,7 @@ public class Game {
 		
 	}
 	
-	public void generateMirrors() {
+	public void generateMirror() {
 		int counter = 0;
 		
 		if(first != null && counter == k ) {
@@ -106,7 +95,39 @@ public class Game {
 	}
 	
 	
+    public String toString() {
+    	String msg = "";
+    	msg = toStringRow(first);   	
+    	return msg;
+    }
 
+
+
+
+
+	private String toStringRow(Box firstRow) {
+		String msg = "";
+		if(firstRow != null) {
+			msg = toStringCol(firstRow) +"\n";
+			msg += toStringRow(firstRow.getDown());
+		}
+		
+		return msg;
+	}
+
+
+
+
+
+	private String toStringCol(Box current) {
+		String msg = "";
+		if(current != null) {
+			msg += current.toString();
+			msg += toStringCol(current.getNext());
+		}
+		
+		return msg;
+	}
 
 
 

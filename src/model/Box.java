@@ -1,6 +1,6 @@
 package model;
 
-//Adapted of gee
+//Adapted of geeks for geeks and example of classroom
 public class Box {
 	
 	
