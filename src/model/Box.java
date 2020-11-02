@@ -2,22 +2,20 @@ package model;
 
 //Adapted of geeks for geeks and example of classroom
 public class Box {
-	
-	
-	
+
 	private Box next;
 	private Box prev;
 	private Box up;
 	private Box down;
-	
+
 	private int row;
 	private char colum;
 	private char mirror;
-	
+
 	public Box(int r, int c) {
 		row = r;
 		colum = (char) ('A' + c);
-		
+
 		next = null;
 		prev = null;
 		up = null;
@@ -71,11 +69,11 @@ public class Box {
 	public void setColum(char colum) {
 		this.colum = colum;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "[ " + row + "" + colum + " ]";
-		
+
 	}
 
 	public char getMirror() {
@@ -85,10 +83,5 @@ public class Box {
 	public void setMirror(char mirror) {
 		this.mirror = mirror;
 	}
-	
-	
-	
-	
-	
-	
+
 }
