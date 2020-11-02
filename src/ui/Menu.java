@@ -70,14 +70,19 @@ public class Menu {
 	    String nickName = line[0];
 	    int n = Integer.parseInt(line[1]);
 	    int m = Integer.parseInt(line[2]);
+	    if(m >26) {
+	    	System.out.println("The number of columns must not be greater than 26");
+	    }
 	    int k = Integer.parseInt(line[3]);
+	    if(!(k <= (m*n))) {
+	    	System.out.println("Your k don't be greater than " + (m*n));
+	    }
 	   // displayInitialGame(n, m);
-	    if(m <= 26) {
+	    if(m <= 26 && k <= (m*n)) {
 	        game = new Game(n, m, k, nickName);
 	        game.createMatrix();
 	      System.out.println(game);
-	    }else {
-	    	System.out.println("The number of columns must not be greater than 26");
+	      shoot();
 	    }
 	    
 	    
@@ -85,6 +90,14 @@ public class Menu {
 		
 	}
 	
+	private void shoot() throws Exception {
+		System.out.print("Write box to shoot: ");
+		String boxShooter = br.readLine();
+		game.startShoot(boxShooter);
+		
+	}
+
+
 	private void displayInitialGame(int n, int m) throws Exception {
 		
 		if(n > 0) {

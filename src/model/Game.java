@@ -7,10 +7,18 @@ public class Game {
 
 	private Box first;
 
+	
+
+	
+
+
+
+
 	private int n;
 	private int m;
 	private int k;
 	private String nickName;	
+	private int tempMirrors;
 
 	public Game(int n, int m, int k, String nic) {
 		first = null;
@@ -18,23 +26,12 @@ public class Game {
 		this.m = m;
 		this.k = k;
 		nickName = nic;
+		tempMirrors = 0;
 	}
 		
-	public  void display() {
-        Box pointerRight;
-        Box pointerDown = first;
-        while (pointerDown != null) {
-
-            pointerRight = pointerDown;
-            while (pointerRight != null) {
-                System.out.print(pointerRight + " ");
-                pointerRight = pointerRight.getNext();
-            }
-
-            System.out.println();
-            pointerDown = pointerDown.getDown();
-        }
-    }
+	public int getTempMirrors() {
+		return tempMirrors;
+	}
 		
 	public Box getFirst() {
 		return first;
@@ -44,9 +41,7 @@ public class Game {
 		this.first = first;
 	}
 
-	/*
-	 * 
-	 */
+	
 	public void createMatrix() {
 		createMatrix(0, 0, null);
 	}
@@ -56,9 +51,13 @@ public class Game {
 			return null;
 		}
 		
-
+        
 		Box temp = new Box(i+1, j);
-		
+		if(k > tempMirrors) {
+			generateMirror(temp);
+			
+			
+		}
 		if(first == null) {
 			first = temp;
 		}
@@ -86,11 +85,10 @@ public class Game {
 		
 	}
 	
-	public void generateMirror() {
-		int counter = 0;
-		
-		if(first != null && counter == k ) {
-			
+	public void generateMirror(Box temp) {
+		if(getRamdom()) {			
+			temp.setMirror(selectMirror());
+			tempMirrors++;
 		}
 	}
 	
@@ -127,6 +125,19 @@ public class Game {
 		}
 		
 		return msg;
+	}
+
+	public void startShoot(String boxShooter) {
+		if(boxShooter.length() == 2) {
+			normalShoot(boxShooter);
+		}else {
+			sideShoot(boxShooter);
+		}
+	}
+
+	private void normalShoot(String boxShooter) {
+		
+		
 	}
 
 
