@@ -11,6 +11,7 @@ public class Box {
 	private int row;
 	private char colum;
 	private char mirror;
+	private String id;
 
 	public Box(int r, int c) {
 		row = r;
@@ -72,7 +73,7 @@ public class Box {
 
 	@Override
 	public String toString() {
-		return "[ " + row + "" + colum + " ]";
+		return "[ " + getId() + " ]";
 
 	}
 
@@ -82,6 +83,10 @@ public class Box {
 
 	public void setMirror(char mirror) {
 		this.mirror = mirror;
+	}
+	
+	public  String getId() {
+		return getRow() + "" + getColum();
 	}
 
 }

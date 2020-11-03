@@ -3,8 +3,6 @@ package model;
 import java.util.Random;
 
 import exceptions.MiddleBoxException;
-import exceptions.MidleBoxException;
-import exceptions.midleBoxException;
 
 //Adapted geek for geeks to create double linked list matrix
 public class Game {
@@ -140,7 +138,7 @@ public class Game {
 		return msg;
 	}
 
-	public void startShoot(String boxShooter)throws MiddleBoxException {
+	public void startShoot(String boxShooter) throws MiddleBoxException {
 		if (boxShooter.length() == 2) {
 			normalShoot(boxShooter);
 		} else {
@@ -149,26 +147,58 @@ public class Game {
 	}
 
 	private void normalShoot(String boxShooter) throws MiddleBoxException {
-		
-   	 if(!(boxShooter.startsWith("1") ||
-   			 boxShooter.startsWith(getN()+"") ||
-   			 boxShooter.endsWith("A") ||
-   			 boxShooter.endsWith(mParseString(boxShooter))
-   		 )) {  
-   		throw new MiddleBoxException(boxShooter);
-	}else {
-		searchBox(boxShooter);
+
+		if (!(boxShooter.startsWith("1") || boxShooter.startsWith(getN() + "") || boxShooter.endsWith("A")
+				|| boxShooter.endsWith(mParseString(boxShooter)))) {
+			throw new MiddleBoxException(boxShooter);
+		} else {
+			searchBox(boxShooter);
+		}
+
 	}
 
-}
+	public Box searchBox(String id) {
+		Box searched = null;
+		if (first != null) {
+			if (first.getId().equals(id)) {
+				searched = first;
 
-	private String  mParseString(String boxShooter) {
-   	 
-   	 String m = boxShooter.substring(1, 1);
-   		int mNumber = Integer.parseInt(m);
-   		char mChar = (char) ('A' + mNumber);
-   		String mString = Character.toString(mChar);
-   		return mString;
+			} else {
+				searched = searchRow(id, first);
+			}
+		}
+		return searched;
+	}
+
+	public static Box searchColumn(String id, Box current) {
+        if(current == null){
+            return  null;
+        }
+        if (current != null && current.getId().equals(id)) {
+            return current;
+        } else if (current.getNext() == null) {
+            return null;
+        }
+        return searchColumn(id, current.getNext());
     }
-	
+
+    public static Box searchRow(String id, Box current) {
+        if (current != null && current.getId().equals(id)) {
+            return current;
+        }
+        if(searchColumn(id, current) == null && current != null){
+            return searchRow(id, current.getDown());
+        }
+        return searchColumn(id, current);
+    }
+
+	private String mParseString(String boxShooter) {
+
+		String m = boxShooter.substring(1, 1);
+		int mNumber = Integer.parseInt(m);
+		char mChar = (char) ('A' + mNumber);
+		String mString = Character.toString(mChar);
+		return mString;
+	}
+
 }
