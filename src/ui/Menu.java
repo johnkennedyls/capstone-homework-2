@@ -1,12 +1,13 @@
 package ui;
 
 import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Scanner;
 
+import exceptions.MiddleBoxException;
 import model.Game;
 
 public class Menu {
@@ -89,33 +90,21 @@ public class Menu {
 
 	}
 
-	private void shoot() throws Exception {
-		System.out.print("Write box to shoot: ");
-		String boxShooter = br.readLine();
-		game.startShoot(boxShooter);
-
-	}
-
-	private void displayInitialGame(int n, int m) throws Exception {
-
-		if (n > 0) {
-			displayRow(m);
-			System.out.println();
-			displayInitialGame(n - 1, m);
-
-		}
-	}
-
-	private void displayRow(int m) throws Exception {
-		if (m > 0) {
-			System.out.print("[ ] ");
-
-			displayRow(m - 1);
-
+	private void shoot() throws Exception, MiddleBoxException {
+		try {
+			System.out.print("Write box to shoot: ");
+			String boxShooter = br.readLine();
+			game.startShoot(boxShooter);
+		} catch (MiddleBoxException mbe) {
+			System.out.println(mbe.getMessage());
+			mbe.printStackTrace();
 		}
 
 	}
 
+	
+
+	
 	private void exit() throws Exception {
 		br.close();
 

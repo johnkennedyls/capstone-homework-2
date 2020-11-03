@@ -1,6 +1,9 @@
 package model;
 
 import java.util.Random;
+
+import exceptions.MiddleBoxException;
+import exceptions.MidleBoxException;
 import exceptions.midleBoxException;
 
 //Adapted geek for geeks to create double linked list matrix
@@ -137,7 +140,7 @@ public class Game {
 		return msg;
 	}
 
-	public void startShoot(String boxShooter) {
+	public void startShoot(String boxShooter)throws MiddleBoxException {
 		if (boxShooter.length() == 2) {
 			normalShoot(boxShooter);
 		} else {
@@ -145,14 +148,16 @@ public class Game {
 		}
 	}
 
-	private void normalShoot(String boxShooter) {
+	private void normalShoot(String boxShooter) throws MiddleBoxException {
 		
-   	 if(boxShooter.startsWith("1") ||
+   	 if(!(boxShooter.startsWith("1") ||
    			 boxShooter.startsWith(getN()+"") ||
    			 boxShooter.endsWith("A") ||
    			 boxShooter.endsWith(mParseString(boxShooter))
-   		 ) {  
-   		 throw new midleBoxException();
+   		 )) {  
+   		throw new MiddleBoxException(boxShooter);
+	}else {
+		searchBox(boxShooter);
 	}
 
 }
