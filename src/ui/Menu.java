@@ -84,9 +84,10 @@ public class Menu {
 		if (m <= 26 && k <= (m * n)) {
 			game = new Game(n, m, k, nickName);
 			game.createMatrix();
+			game.generateMirrors();
 			System.out.println(game);
 			System.out.println("Los espejos son: " + game.getTempMirrors());
-			System.out.println(game.searchBox("1B").getId());
+			
 			shoot();
 		}
 

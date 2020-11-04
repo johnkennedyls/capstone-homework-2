@@ -15,6 +15,15 @@ public class Game {
 	private String nickName;
 	private int tempMirrors;
 
+	public Game(int n, int m, int k, String nic) {
+		first = null;
+		this.n = n;
+		this.m = m;
+		this.k = k;
+		nickName = nic;
+		tempMirrors = 0;
+	}
+
 	public int getM() {
 		return m;
 	}
@@ -43,15 +52,6 @@ public class Game {
 		this.tempMirrors = tempMirrors;
 	}
 
-	public Game(int n, int m, int k, String nic) {
-		first = null;
-		this.n = n;
-		this.m = m;
-		this.k = k;
-		nickName = nic;
-		tempMirrors = 0;
-	}
-
 	public int getTempMirrors() {
 		return tempMirrors;
 	}
@@ -74,10 +74,7 @@ public class Game {
 		}
 
 		Box temp = new Box(i + 1, j);
-		if (k > tempMirrors) {
-			generateMirror(temp);
 
-		}
 		if (first == null) {
 			first = temp;
 		}
@@ -105,11 +102,15 @@ public class Game {
 
 	}
 
-	public void generateMirror(Box temp) {
-		if (getRamdom()) {
-			temp.setMirror(selectMirror());
-			tempMirrors++;
+	public void generateMirrors() {
+
+		if (k > tempMirrors) {
+			Box current = searchBox(generateId());
+			current.setMirror(selectMirror());
+			setTempMirrors(++tempMirrors);
+			generateMirrors();
 		}
+
 	}
 
 	public String toString() {
@@ -146,13 +147,13 @@ public class Game {
 		}
 	}
 
-	private void normalShoot(String boxShooter) throws MiddleBoxException {
-
-		if (!(boxShooter.startsWith("1") || boxShooter.startsWith(getN() + "") || boxShooter.endsWith("A")
-				|| boxShooter.endsWith(mParseString(boxShooter)))) {
-			throw new MiddleBoxException(boxShooter);
+	private void normalShoot(String idShooter) throws MiddleBoxException {
+		Box boxShooter = searchBox(idShooter);
+		if (boxShooter.getUp() != null && boxShooter.getDown() != null && boxShooter.getNext() != null
+				&& boxShooter.getPrev() != null) {
+			throw new MiddleBoxException(idShooter);
 		} else {
-			searchBox(boxShooter);
+
 		}
 
 	}
@@ -170,35 +171,43 @@ public class Game {
 		return searched;
 	}
 
-	public static Box searchColumn(String id, Box current) {
-        if(current == null){
-            return  null;
-        }
-        if (current != null && current.getId().equals(id)) {
-            return current;
-        } else if (current.getNext() == null) {
-            return null;
-        }
-        return searchColumn(id, current.getNext());
-    }
-
-    public static Box searchRow(String id, Box current) {
-        if (current != null && current.getId().equals(id)) {
-            return current;
-        }
-        if(searchColumn(id, current) == null && current != null){
-            return searchRow(id, current.getDown());
-        }
-        return searchColumn(id, current);
-    }
-
-	private String mParseString(String boxShooter) {
-
-		String m = boxShooter.substring(1, 1);
-		int mNumber = Integer.parseInt(m);
-		char mChar = (char) ('A' + mNumber);
-		String mString = Character.toString(mChar);
-		return mString;
+	private Box searchRow(String id, Box current) {
+		if (current != null && current.getId().equals(id)) {
+			return current;
+		}
+		if (searchColumn(id, current) == null && current != null) {
+			return searchRow(id, current.getDown());
+		}
+		return searchColumn(id, current);
 	}
 
+	private Box searchColumn(String id, Box current) {
+		if (current == null) {
+			return null;
+		}
+		if (current != null && current.getId().equals(id)) {
+			return current;
+		} else if (current.getNext() == null) {
+			return null;
+		}
+		return searchColumn(id, current.getNext());
+	}
+
+	/**
+	 * double random_double = Math.random() * (max - min + 1) + min;
+	 * 
+	 * int random_int = (int)(Math.random() * (max - min + 1) + min);
+	 * 
+	 * @return
+	 */
+
+	public String generateId() {
+		int randomRow = (int) (Math.random() * (n - 1 + 1) + 1);
+		int randomCol = (int) (Math.random() * (m - 1 + 1) + 0);
+
+		char col = (char) ('A' + randomCol);
+		String id = randomRow + "" + col;
+		return id;
+
+	}
 }

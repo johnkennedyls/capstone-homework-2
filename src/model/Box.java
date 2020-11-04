@@ -73,7 +73,7 @@ public class Box {
 
 	@Override
 	public String toString() {
-		return "[ " + getId() + " ]";
+		return "[ " + getMirror() + " ]";
 
 	}
 
