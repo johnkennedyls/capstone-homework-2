@@ -9,18 +9,25 @@ public class Box {
 	private Box down;
 
 	private int row;
-	private char colum;
+	private int  colum;
 	private char mirror;
 	private String id;
+	private boolean isStart;
+	private boolean isEnd;
+	
 
 	public Box(int r, int c) {
 		row = r;
-		colum = (char) ('A' + c);
+		colum = c;
 
 		next = null;
 		prev = null;
 		up = null;
 		down = null;
+		mirror = 'x';
+		id = getRow() + "" + getColum();
+		isStart = false;
+		isEnd = false;
 	}
 
 	public Box getNext() {
@@ -64,17 +71,25 @@ public class Box {
 	}
 
 	public char getColum() {
-		return (char) colum;
+		return (char) ('A' + colum);
 	}
 
-	public void setColum(char colum) {
+	public void setColum(int colum) {
 		this.colum = colum;
 	}
 
 	@Override
 	public String toString() {
-		return "[ " + getMirror() + " ]";
-
+		String message;
+		message = "[ " + getMirror() + " ]";
+		
+		if(isStart) {
+			message = "[S]";
+		}
+		if(isEnd) {
+			message = "[E]";
+		}
+       return message;
 	}
 
 	public char getMirror() {
@@ -86,7 +101,24 @@ public class Box {
 	}
 	
 	public  String getId() {
-		return getRow() + "" + getColum();
+		return id;
 	}
 
+	public boolean isStart() {
+		return isStart;
+	}
+
+	public void setStart(boolean isStart) {
+		this.isStart = isStart;
+	}
+
+	public boolean isEnd() {
+		return isEnd;
+	}
+
+	public void setEnd(boolean isEnd) {
+		this.isEnd = isEnd;
+	}
+
+	
 }

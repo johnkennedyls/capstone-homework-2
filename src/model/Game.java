@@ -7,6 +7,8 @@ import exceptions.MiddleBoxException;
 //Adapted geek for geeks to create double linked list matrix
 public class Game {
 
+	
+
 	private Box first;
 
 	private int n;
@@ -14,6 +16,7 @@ public class Game {
 	private int k;
 	private String nickName;
 	private int tempMirrors;
+	public int Score;
 
 	public Game(int n, int m, int k, String nic) {
 		first = null;
@@ -22,7 +25,22 @@ public class Game {
 		this.k = k;
 		nickName = nic;
 		tempMirrors = 0;
+		createMatrix();
 	}
+	
+	
+
+	public int getScore() {
+		return Score;
+	}
+
+
+
+	public void setScore(int score) {
+		Score = score;
+	}
+
+
 
 	public int getM() {
 		return m;
@@ -64,26 +82,38 @@ public class Game {
 		this.first = first;
 	}
 
-	public void createMatrix() {
-		createMatrix(0, 0, null);
+private void createMatrix() {
+		first= new Box(0, 0);
+		createRow(0,0,first);
 	}
 
-	private Box createMatrix(int i, int j, Box current) {
-		if (i >= n || j >= m) {
-			return null;
+	
+
+	private void createRow(int i, int j, Box firstRow) {
+		
+		createCol(i,j+1,firstRow,firstRow.getUp());
+		if(i+1 < n) {
+			Box downFirstRow = new Box(i +1, j);
+			downFirstRow.setUp(firstRow);
+			firstRow.setDown(downFirstRow);
+			createRow(i + 1, j, downFirstRow);
 		}
+	}
 
-		Box temp = new Box(i + 1, j);
-
-		if (first == null) {
-			first = temp;
+	private void createCol(int i, int j, Box prev, Box rowPrev) {
+		if(j < m) {
+			Box current = new Box(i, j);
+			current.setPrev(prev);
+			prev.setNext(current);
+			
+			if(rowPrev != null) {
+				rowPrev = rowPrev.getNext();
+				current.setUp(rowPrev);
+				rowPrev.setDown(current);
+			}
+			createCol(i, j + 1, current, rowPrev);
 		}
-
-		temp.setPrev(current);
-		temp.setUp(current);
-		temp.setNext(createMatrix(i, j + 1, temp));
-		temp.setDown(createMatrix(i + 1, j, temp));
-		return temp;
+		
 	}
 
 	public boolean getRamdom() {
@@ -106,9 +136,20 @@ public class Game {
 
 		if (k > tempMirrors) {
 			Box current = searchBox(generateId());
-			current.setMirror(selectMirror());
-			setTempMirrors(++tempMirrors);
-			generateMirrors();
+			System.out.println(current.getId());
+			if (current.getMirror() == 'R' || current.getMirror() == 'L') {
+				generateMirrors();
+			}else {
+				current.setMirror(selectMirror());
+				
+				System.out.println("         el getMirror es: " + current.getMirror());
+				
+				
+				setTempMirrors(++tempMirrors);
+				generateMirrors();
+			}
+
+			
 		}
 
 	}
@@ -140,23 +181,82 @@ public class Game {
 	}
 
 	public void startShoot(String boxShooter) throws MiddleBoxException {
-		if (boxShooter.length() == 2) {
+		
+		if (boxShooter.length() == 2) { 
 			normalShoot(boxShooter);
 		} else {
 			sideShoot(boxShooter);
 		}
 	}
 
+	private void sideShoot(String boxShooter) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void normalShoot(String idShooter) throws MiddleBoxException {
+		System.out.println("Entra en normal shoot");
 		Box boxShooter = searchBox(idShooter);
 		if (boxShooter.getUp() != null && boxShooter.getDown() != null && boxShooter.getNext() != null
 				&& boxShooter.getPrev() != null) {
+			
 			throw new MiddleBoxException(idShooter);
 		} else {
-
+              Box current =  searchBox(idShooter);
+               if(current.getUp() == null) {
+            	   System.out.println("Entra en sendDown");
+            	  // shootDown(current);
+               }
+               else if(current.getPrev() == null) {
+            	   shootRight(current);
+               }
+               else if(current.getNext() == null) {
+            	 //  shootLeft(current);
+               }else {
+            	  // shootUp(current);
+               }
 		}
 
 	}
+	
+	
+	public  Box shootRight(Box box) {
+      char mirror = box.getMirror();
+        if (mirror != 'x') {
+            if (mirror =='L') {
+                return shootDown(box);
+            } else {
+                return shootUp(box);
+            }
+        }
+        if (box.getNext() == null) {
+            return box;
+        }
+        return shootRight(box.getNext());
+    }
+
+    public  Box shootUp(Box box) {
+        System.out.println(box);
+        if (box.getUp() == null) {
+            return box;
+        }
+        return shootUp(box.getUp());
+    }
+
+    public  Box shootDown(Box box) {
+        if (box.getDown() == null) {
+            return box;
+        }
+        return shootDown(box.getDown());
+    }
+
+    public  Box shootLeft(Box box) {
+        if (box.getPrev() == null) {
+            return box;
+        }
+
+        return shootLeft(box.getPrev());
+    }
 
 	public Box searchBox(String id) {
 		Box searched = null;
@@ -202,7 +302,7 @@ public class Game {
 	 */
 
 	public String generateId() {
-		int randomRow = (int) (Math.random() * (n - 1 + 1) + 1);
+		int randomRow = (int) (Math.random() * (n - 1 + 1) + 0);
 		int randomCol = (int) (Math.random() * (m - 1 + 1) + 0);
 
 		char col = (char) ('A' + randomCol);
