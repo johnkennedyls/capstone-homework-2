@@ -5,8 +5,12 @@
 - 🔭 I’m currently working on [Laser Game](https://github.com/johnkennedyls/capstone-homework-2.git)
 <h3 align="left">This is a game for your brain skills... You will to start writing your nickName, the n number of rows, the
 m number of rows. You have to start to shoot writing the box to shoot 0 to n-1 and the column lether.
+  
 This program is maked wit java 1.8
+  
 IDE used: Eclipse</h3> 
+
+My documents pdf [documents pdf](https://github.com/johnkennedyls/capstone-homework-2/blob/master/docs/requerimientos%20ti2.pdf)
 
 - 📫 How to reach me **jkls1998@gmail.com**
 
@@ -17,4 +21,5 @@ IDE used: Eclipse</h3>
 
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> <a href="https://git-scm.com/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank"> <img src="https://devicons.github.io/devicon/devicon.git/icons/java/java-original-wordmark.svg" alt="java" width="40" height="40"/> </a> </p>
+
 
