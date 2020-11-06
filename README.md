@@ -3,6 +3,10 @@
 <h3 align="center">An apassionated musician and programer.</h3>
 
 - 🔭 I’m currently working on [Laser Game](https://github.com/johnkennedyls/capstone-homework-2.git)
+<h3 align="left">This is a game for your brain skills... You will to start writing your nickName, the n number of rows, the
+m number of rows. You have to start to shoot writing the box to shoot 0 to n-1 and the column lether.
+This program is maked wit java 1.8
+IDE used: Eclipse</h3> 
 
 - 📫 How to reach me **jkls1998@gmail.com**
 
